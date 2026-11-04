@@ -177,7 +177,10 @@ class LoadingButton extends StatelessWidget {
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (icon != null) ...[Icon(icon, size: 20), const SizedBox(width: 8)],
+                if (icon != null) ...[
+                  Icon(icon, size: 20),
+                  const SizedBox(width: 8)
+                ],
                 Text(label),
               ],
             ),
@@ -206,7 +209,8 @@ class ErrorView extends StatelessWidget {
               const SizedBox(height: 16),
               OutlinedButton(
                 onPressed: onRetry,
-                style: OutlinedButton.styleFrom(minimumSize: const Size(140, 44)),
+                style:
+                    OutlinedButton.styleFrom(minimumSize: const Size(140, 44)),
                 child: const Text('Try again'),
               ),
             ],
@@ -249,7 +253,8 @@ class EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(title,
-                style: t.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                style: t.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.w700),
                 textAlign: TextAlign.center),
             if (subtitle != null) ...[
               const SizedBox(height: 6),
@@ -285,7 +290,8 @@ class StatusChip extends StatelessWidget {
           Icon(status.icon, size: 16, color: c),
           const SizedBox(width: 6),
           Text(status.label,
-              style: TextStyle(color: c, fontWeight: FontWeight.w700, fontSize: 13)),
+              style: TextStyle(
+                  color: c, fontWeight: FontWeight.w700, fontSize: 13)),
         ],
       ),
     );
@@ -293,7 +299,11 @@ class StatusChip extends StatelessWidget {
 }
 
 class InfoRow extends StatelessWidget {
-  const InfoRow({super.key, required this.icon, required this.label, required this.value});
+  const InfoRow(
+      {super.key,
+      required this.icon,
+      required this.label,
+      required this.value});
 
   final IconData icon;
   final String label;
@@ -325,7 +335,8 @@ class InfoRow extends StatelessWidget {
                         ?.copyWith(color: t.colorScheme.onSurfaceVariant)),
                 const SizedBox(height: 2),
                 Text(value,
-                    style: t.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
+                    style: t.textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w500)),
               ],
             ),
           ),
@@ -391,8 +402,8 @@ class AppointmentCard extends StatelessWidget {
                         Text(a.notes!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: t.textTheme.bodyMedium
-                                ?.copyWith(color: t.colorScheme.onSurfaceVariant)),
+                            style: t.textTheme.bodyMedium?.copyWith(
+                                color: t.colorScheme.onSurfaceVariant)),
                       ],
                       const SizedBox(height: 8),
                       Text('Requested ${formatDateTime(a.createdAt)}',
@@ -509,7 +520,8 @@ class StatusTimeline extends StatelessWidget {
   Widget _icon(_StepState s) {
     switch (s) {
       case _StepState.done:
-        return const Icon(Icons.check_circle_rounded, size: 22, color: CutColors.blue);
+        return const Icon(Icons.check_circle_rounded,
+            size: 22, color: CutColors.blue);
       case _StepState.current:
         return const Icon(Icons.radio_button_checked_rounded,
             size: 22, color: CutColors.gold);

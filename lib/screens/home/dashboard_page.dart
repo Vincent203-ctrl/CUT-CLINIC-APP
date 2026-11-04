@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/brand.dart';
 import '../../models/appointment.dart';
 import '../../models/student_profile.dart';
+import '../../widgets/appointment_countdown.dart';
 import '../../widgets/common.dart';
 import '../../widgets/home_hero.dart';
 import '../../widgets/student_avatar.dart';
@@ -92,24 +93,33 @@ class DashboardPage extends StatelessWidget {
                                       color: t.colorScheme.primaryContainer,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(Icons.event_available_outlined,
+                                    child: const Icon(
+                                        Icons.event_available_outlined,
                                         color: CutColors.blue),
                                   ),
                                   const SizedBox(width: 14),
                                   const Expanded(
-                                    child: Text('No active appointment. Request one and '
+                                    child: Text(
+                                        'No active appointment. Request one and '
                                         'the clinic will assign you a date and time.'),
                                   ),
                                 ],
                               ),
                             ),
                           ),
+                        if (active != null &&
+                            active.status == AppointmentStatus.approved &&
+                            active.scheduledAt != null) ...[
+                          const SizedBox(height: 12),
+                          AppointmentCountdown(appointment: active),
+                        ],
                         const SizedBox(height: 20),
                         const SectionTitle('What do you need to do?'),
                         GridView(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 12,
                             crossAxisSpacing: 12,
@@ -122,10 +132,14 @@ class DashboardPage extends StatelessWidget {
                               subtitle: active == null
                                   ? 'Book a clinic visit'
                                   : 'You have one active',
-                              colors: const [CutColors.blueDark, Color(0xFF0B5CAD)],
+                              colors: const [
+                                CutColors.blueDark,
+                                Color(0xFF0B5CAD)
+                              ],
                               locked: active != null,
                               onTap: () => active == null
-                                  ? _open(context, const RequestAppointmentScreen())
+                                  ? _open(
+                                      context, const RequestAppointmentScreen())
                                   : showInfo(context,
                                       'You already have an active appointment. Cancel it to make a new request.'),
                             ),
@@ -134,22 +148,32 @@ class DashboardPage extends StatelessWidget {
                               title: 'My Appointment',
                               subtitle: active?.status.label ?? 'None active',
                               colors: const [CutColors.blue, Color(0xFF1565C0)],
-                              onTap: () => _open(context, const MyAppointmentScreen()),
+                              onTap: () =>
+                                  _open(context, const MyAppointmentScreen()),
                             ),
                             _ActionTile(
                               icon: Icons.history_rounded,
                               title: 'Past appointments',
                               subtitle: 'Your clinic history',
-                              colors: const [Color(0xFF0A4F94), Color(0xFF2A7BD1)],
-                              onTap: () => _open(context, const HistoryScreen()),
+                              colors: const [
+                                Color(0xFF0A4F94),
+                                Color(0xFF2A7BD1)
+                              ],
+                              onTap: () =>
+                                  _open(context, const HistoryScreen()),
                             ),
                             _ActionTile(
                               icon: Icons.notifications_active_rounded,
                               title: 'Alerts',
                               subtitle: 'Updates & reminders',
-                              colors: const [Color(0xFF12559E), Color(0xFF3A8EDB)],
-                              onTap: () => _open(context,
-                                  const Scaffold(body: NotificationsPage(showBack: true))),
+                              colors: const [
+                                Color(0xFF12559E),
+                                Color(0xFF3A8EDB)
+                              ],
+                              onTap: () => _open(
+                                  context,
+                                  const Scaffold(
+                                      body: NotificationsPage(showBack: true))),
                             ),
                           ],
                         ),
@@ -170,17 +194,20 @@ class DashboardPage extends StatelessWidget {
                                 _HowStep(
                                     n: 1,
                                     title: 'Request',
-                                    text: 'Choose the type of service you need.'),
+                                    text:
+                                        'Choose the type of service you need.'),
                                 SizedBox(height: 14),
                                 _HowStep(
                                     n: 2,
                                     title: 'Clinic confirms',
-                                    text: 'Staff review your request and assign a date and time.'),
+                                    text:
+                                        'Staff review your request and assign a date and time.'),
                                 SizedBox(height: 14),
                                 _HowStep(
                                     n: 3,
                                     title: 'Get notified',
-                                    text: 'You receive an SMS/email, plus a reminder the day before.'),
+                                    text:
+                                        'You receive an SMS/email, plus a reminder the day before.'),
                               ],
                             ),
                           ),
@@ -283,7 +310,8 @@ class _ActionTileState extends State<_ActionTile> {
                                   shape: BoxShape.circle,
                                   color: Colors.white.withAlpha(40),
                                 ),
-                                child: Icon(widget.icon, color: Colors.white, size: 18),
+                                child: Icon(widget.icon,
+                                    color: Colors.white, size: 18),
                               ),
                               const Spacer(),
                               Icon(
@@ -312,7 +340,8 @@ class _ActionTileState extends State<_ActionTile> {
                             widget.subtitle,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(color: Colors.white70, fontSize: 11.5),
+                            style: const TextStyle(
+                                color: Colors.white70, fontSize: 11.5),
                           ),
                         ],
                       ),
@@ -345,9 +374,11 @@ class _HowStep extends StatelessWidget {
           height: 30,
           width: 30,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(color: CutColors.gold, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+              color: CutColors.gold, shape: BoxShape.circle),
           child: Text('$n',
-              style: const TextStyle(color: CutColors.blue, fontWeight: FontWeight.w800)),
+              style: const TextStyle(
+                  color: CutColors.blue, fontWeight: FontWeight.w800)),
         ),
         const SizedBox(width: 14),
         Expanded(
@@ -355,7 +386,8 @@ class _HowStep extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: t.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                  style: t.textTheme.titleSmall
+                      ?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 2),
               Text(text,
                   style: t.textTheme.bodyMedium

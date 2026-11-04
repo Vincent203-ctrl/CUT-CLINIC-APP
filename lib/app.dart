@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/config.dart';
 import 'core/theme.dart';
+import 'screens/auth/biometric_gate.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/student_gate.dart';
 import 'screens/setup_required_screen.dart';
@@ -39,7 +40,8 @@ class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     if (_showSplash) {
-      return SplashScreen(onContinue: () => setState(() => _showSplash = false));
+      return SplashScreen(
+          onContinue: () => setState(() => _showSplash = false));
     }
     return AuthGate(onBackToWelcome: () => setState(() => _showSplash = true));
   }
@@ -60,7 +62,10 @@ class AuthGate extends StatelessWidget {
       builder: (context, _) {
         final session = Supabase.instance.client.auth.currentSession;
         if (session == null) return LoginScreen(onBack: onBackToWelcome);
-        return StudentGate(key: ValueKey(session.user.id));
+        return BiometricGate(
+          key: ValueKey(session.user.id),
+          child: StudentGate(key: ValueKey(session.user.id)),
+        );
       },
     );
   }

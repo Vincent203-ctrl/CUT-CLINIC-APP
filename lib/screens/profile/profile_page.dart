@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/brand.dart';
 import '../../core/privacy.dart';
 import '../../models/student_profile.dart';
+import '../../widgets/biometric_tile.dart';
 import '../../widgets/common.dart';
 import '../../widgets/cut_header.dart';
 import '../../widgets/pill_button.dart';
@@ -155,6 +156,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const BiometricTile(),
                   ],
                 ),
               ),

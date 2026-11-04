@@ -15,7 +15,8 @@ class RequestAppointmentScreen extends StatefulWidget {
   const RequestAppointmentScreen({super.key});
 
   @override
-  State<RequestAppointmentScreen> createState() => _RequestAppointmentScreenState();
+  State<RequestAppointmentScreen> createState() =>
+      _RequestAppointmentScreenState();
 }
 
 class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
@@ -36,7 +37,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
 
   String? get _preferred {
     final parts = <String>[];
-    if (_prefDate != null) parts.add(DateFormat('EEE d MMM yyyy').format(_prefDate!));
+    if (_prefDate != null)
+      parts.add(DateFormat('EEE d MMM yyyy').format(_prefDate!));
     if (_slot != 'No preference') parts.add(_slot);
     return parts.isEmpty ? null : parts.join(', ');
   }
@@ -77,7 +79,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
           future: _services,
           builder: (context, snap) {
             if (snap.hasError) {
-              return ErrorView(message: friendlyError(snap.error!), onRetry: _reload);
+              return ErrorView(
+                  message: friendlyError(snap.error!), onRetry: _reload);
             }
             if (!snap.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -87,7 +90,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
               return const EmptyState(
                 icon: Icons.medical_services_outlined,
                 title: 'No services available',
-                subtitle: 'The clinic has not set up its services yet. Please try again later.',
+                subtitle:
+                    'The clinic has not set up its services yet. Please try again later.',
               );
             }
             final needsDetails = _service?.requiresDetails ?? false;
@@ -103,7 +107,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                       children: [
                         Text('Step 1 of 2',
                             style: t.textTheme.labelLarge?.copyWith(
-                                color: CutColors.blue, fontWeight: FontWeight.w700)),
+                                color: CutColors.blue,
+                                fontWeight: FontWeight.w700)),
                         const SizedBox(width: 12),
                         const Expanded(
                           child: LinearProgressIndicator(
@@ -118,7 +123,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                     ),
                     const SizedBox(height: 20),
                     Text('Which service do you need?',
-                        style: t.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+                        style: t.textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<ServiceType>(
                       isExpanded: true,
@@ -136,20 +142,22 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                                 Icon(s.icon, size: 20, color: CutColors.blue),
                                 const SizedBox(width: 12),
                                 Expanded(
-                                    child: Text(s.name, overflow: TextOverflow.ellipsis)),
+                                    child: Text(s.name,
+                                        overflow: TextOverflow.ellipsis)),
                               ],
                             ),
                           ),
                       ],
                       onChanged: (s) => setState(() => _service = s),
-                      validator: (v) => v == null ? 'Please choose a type of service' : null,
+                      validator: (v) =>
+                          v == null ? 'Please choose a type of service' : null,
                     ),
                     if ((_service?.description ?? '').isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
                         child: Text(_service!.description!,
-                            style: t.textTheme.bodySmall
-                                ?.copyWith(color: t.colorScheme.onSurfaceVariant)),
+                            style: t.textTheme.bodySmall?.copyWith(
+                                color: t.colorScheme.onSurfaceVariant)),
                       ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -173,7 +181,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text('Your preference (optional)',
-                        style: t.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                        style: t.textTheme.titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 4),
                     Text(
                         'This is a preference only. The clinic confirms your final date and time.',
@@ -192,13 +201,15 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                               : IconButton(
                                   tooltip: 'Clear date',
                                   icon: const Icon(Icons.close_rounded),
-                                  onPressed: () => setState(() => _prefDate = null),
+                                  onPressed: () =>
+                                      setState(() => _prefDate = null),
                                 ),
                         ),
                         child: Text(
                           _prefDate == null
                               ? 'No preference'
-                              : DateFormat('EEEE, d MMMM yyyy').format(_prefDate!),
+                              : DateFormat('EEEE, d MMMM yyyy')
+                                  .format(_prefDate!),
                         ),
                       ),
                     ),
@@ -206,12 +217,15 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                     SegmentedButton<String>(
                       showSelectedIcon: false,
                       segments: const [
-                        ButtonSegment(value: 'No preference', label: Text('Any time')),
+                        ButtonSegment(
+                            value: 'No preference', label: Text('Any time')),
                         ButtonSegment(value: 'Morning', label: Text('Morning')),
-                        ButtonSegment(value: 'Afternoon', label: Text('Afternoon')),
+                        ButtonSegment(
+                            value: 'Afternoon', label: Text('Afternoon')),
                       ],
                       selected: {_slot},
-                      onSelectionChanged: (s) => setState(() => _slot = s.first),
+                      onSelectionChanged: (s) =>
+                          setState(() => _slot = s.first),
                     ),
                     const SizedBox(height: 16),
                     Card(
@@ -236,7 +250,8 @@ class _RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    FilledButton(onPressed: _next, child: const Text('Continue')),
+                    FilledButton(
+                        onPressed: _next, child: const Text('Continue')),
                   ],
                 ),
               ),
