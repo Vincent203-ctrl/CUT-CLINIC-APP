@@ -1,4 +1,23 @@
 # 🏥 CUT Clinic Appointment Management System
+## 🌐 Live Application
+
+🚀 **[Launch CUT Clinic Appointment Management System](https://cutclinicapp.vercel.app)**
+
+CUT Clinic is a Flutter-based appointment management application designed to help students access clinic services and manage their appointments online.
+
+### Technologies Used
+- Flutter & Dart
+- Supabase Authentication
+- PostgreSQL Database
+- Vercel Web Hosting
+
+### Key Features
+- Student registration and login
+- Clinic appointment booking
+- Appointment tracking
+- Student profile management
+- Notifications
+- Secure authentication
 
 **Flutter Student Application | All Safe Tech Group Project**
 
